@@ -9,8 +9,10 @@ html, body{background: #383838;height: 100%;margin: 30px 0;}
 .seoAnalyzer li{display: block;}
 .seoAnalyzer ul li input{width: 100%;padding: 9px;color: grey;}
 
-/*analytics tools*/
-.inner{background: #EAEAEA;color: #808080;padding: 20px;position: relative;min-height: 200px;max-height: 200px;}
-#googleSpeed{display: none;margin: 33px 0;}
+/*analytics results*/
+.loading{display: none; text-align: center; margin: 33px auto;}
+.inner{background: #EAEAEA;color: #808080;padding: 20px;position: relative;min-height: 200px;}
+.inner .left{max-width: 80%;}
+#googleSpeed, #titleResults{display: none;margin: 33px 0;}
 #p{position: absolute;top: 25%;right: 20px;width: 100px;border-radius: 50%;background: #9E0C0C;height: 100px;color: #fff;text-align: center;font-size: 12px;padding-top: 18px;bottom: 25%;}
 #p span{font-size: 27px;display: block;}

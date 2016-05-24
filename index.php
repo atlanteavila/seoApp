@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="css/main.css" media="screen" charset="utf-8">
   </head>
   <body>
-    <div class="loading" id="loading" style="display: none;">
-      loading . . .
-    </div>
     <div class="container">
       <div class="row">
         <div class="col-lg-12 header">
@@ -22,25 +19,31 @@
           <form class="seoAnalyzer" onsubmit="event.preventDefault(); seoApp.getGoogleSpeedJson();" method="post">
             <ul>
             <li><input type="text" name="url" value="http://" onchange="seoApp.setURL();"></li>
-            <li><input type="text" name="keyword" value=""><li>
+            <li><input type="text" name="keywords" value="" onchange="seoApp.setKeyWords();"><li>
             <li><input type="submit" name="submit" value="Submit"> </li>
             </ul>
 
           </form>
         </div>
       </div>
-
+      <div class="loading" id="loading" style="display: none;">
+        <img src="images/22.gif" alt="loading..." />
+      </div>
       <div class="row">
+        <div class="col-lg-12 titleResults">
+          <div class="inner" id="titleResults">
+            <div class="googleSuggestions">
+
+            </div>
+            <p id="titleResults"><span id="titlePoints"></span></p>
+          </div>
+        </div>
         <div class="col-lg-12" id="googleSpeed">
           <div class="inner">
             <p id="p"><span id="speed"></span> google speed score </p>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="google" id="google">
-
     </div>
 
   </body>
