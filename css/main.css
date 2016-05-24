@@ -3,6 +3,11 @@ html, body{background: #383838;height: 100%;margin: 30px 0;}
 .header{text-align: center;}
 .header h1 {font-size: 22px;font-weight: bold;padding: 40px;background: #F34428;color: #fff;margin-bottom: 35px;}
 
+/*form*/
+.seoAnalyzer{}
+.seoAnalyzer ul, li{list-style-type: none;margin: 5px 0;padding: 5px 0;min-width: 100%;display: block;}
+.seoAnalyzer li{display: block;}
+.seoAnalyzer ul li input{width: 100%;padding: 9px;color: grey;}
 
 /*analytics tools*/
 .inner{background: #EAEAEA;color: #808080;padding: 20px;position: relative;min-height: 200px;max-height: 200px;}

@@ -17,6 +17,19 @@
           <h1>SEO Analyzer Tool | Atlante Avila</h1>
         </div>
       </div>
+      <div class="row" id="form">
+        <div class="col-lg-12">
+          <form class="seoAnalyzer" onsubmit="event.preventDefault(); seoApp.getGoogleSpeedJson();" method="post">
+            <ul>
+            <li><input type="text" name="url" value="http://" onchange="seoApp.setURL();"></li>
+            <li><input type="text" name="keyword" value=""><li>
+            <li><input type="submit" name="submit" value="Submit"> </li>
+            </ul>
+
+          </form>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-lg-12" id="googleSpeed">
           <div class="inner">
@@ -32,4 +45,5 @@
 
   </body>
   <script src="js/toolbelt.js" charset="utf-8"></script>
+  <script src="js/app.js" charset="utf-8"></script>
 </html>
