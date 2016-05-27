@@ -11,16 +11,17 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 header">
-          <h1>SEO Analyzer Tool | Atlante Avila</h1>
+
         </div>
       </div>
       <div class="row" id="form">
         <div class="col-lg-12">
-          <form class="seoAnalyzer" onsubmit="event.preventDefault(); seoApp.getGoogleSpeedJson();" method="post">
+          <form class="seoAnalyzer" onsubmit="event.preventDefault(); seoApp.runAllFunctions();" method="post">
             <ul>
-            <li><input type="text" name="url" value="http://" onchange="seoApp.setURL();"></li>
-            <li><input type="text" name="keywords" value="" onchange="seoApp.setKeyWords();"><li>
-            <li><input type="submit" name="submit" value="Submit"> </li>
+            <li><input type="text" name="url" value="http://" onchange="seoApp.setURL();" id="url"></li>
+            <li><input type="text" name="keywords" value="" onchange="seoApp.setKeyWords();" id="keywords"><li>
+            <li><input type="submit" name="submit" value="Submit" id="submit"> </li>
+            <li><button type="button" onClick="seoApp.startOver()" id="startOver">Try Another Domain</button></li>
             </ul>
 
           </form>
@@ -29,21 +30,47 @@
       <div class="loading" id="loading" style="display: none;">
         <img src="images/22.gif" alt="loading..." />
       </div>
-      <div class="row">
-        <div class="col-lg-12 titleResults">
-          <div class="inner" id="titleResults">
-            <div class="googleSuggestions">
 
+      <div class="row">
+
+        <div class="col-lg-12 titleResults">
+
+          <div class="inner" id="titleResults">
+            <div class="left">
+              <h3 id="titleResults-title"></h3>
+              <p class="innerP" id="titleResults-p">google speed score </p>
             </div>
-            <p id="titleResults"><span id="titlePoints"></span></p>
+            <div class="innerS" id="titleResults-score"></div>
           </div>
+
         </div>
-        <div class="col-lg-12" id="googleSpeed">
-          <div class="inner">
-            <p id="p"><span id="speed"></span> google speed score </p>
+
+        <div class="col-lg-12 bodyResults">
+
+          <div class="inner" id="bodyResults">
+            <div class="left">
+              <h3 id="bodyResults-title"></h3>
+              <p class="innerP" id="bodyResults-p"></p>
+            </div>
+            <div class="innerS" id="bodyResults-score"></div>
           </div>
+
         </div>
+
+        <div class="col-lg-12">
+
+          <div class="inner" id="googleResults">
+            <div class="left">
+              <h3 id="googleResults-title"></h3>
+              <p class="innerP" id="googleResults-p">google speed score </p>
+            </div>
+            <div class="innerS" id="googleResults-score"></div>
+          </div>
+
+        </div>
+
       </div>
+
     </div>
 
   </body>
