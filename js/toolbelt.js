@@ -22,16 +22,34 @@ toolbelt.filter = function (coll, callback) {
   return acc;
 }
 
-toolbelt.getData = function(url, dataSet){
+toolbelt.map = function(coll, callback){
+  var acc = [];
+  toolbelt.each(coll, function(element, index){
+    acc.push(callback(element));
+  });
+  return acc;
+}
+
+toolbelt.reduce = function(coll, callback, startVal){
+  startVal = startVal || 0;
+  toolbelt.each(coll, function(element, index){
+    startVal = callback(startVal, element);
+  });
+  return startVal;
+}
+
+toolbelt.getData = function(url, dataSet, func){
   var request = new XMLHttpRequest();
 
   request.open('POST', url, true);
 
   request.onload = function() {
-    if (request.status >= 200 && request.status < 400) {
+    if (request.readyState == 4 && request.status >= 200 && request.status < 400) {
       // Success!
       var data = JSON.parse(request.responseText);
       seoApp[dataSet] = data;
+
+      func(data)
 
     } else {
       // We reached our target server, but it returned an error

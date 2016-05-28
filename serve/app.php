@@ -12,8 +12,11 @@ $string = $_GET["keywords"];
   $explodedBody = explode("<body>", $content);
   $explodedExplodedBody = explode("</body>", $explodedBody[0]);
 
+  $tags = get_meta_tags($url);
+
   echo "{ \"result\": ". "{ ";
   echo "\"titleCount\": " . substr_count($explodedExplodedContent[0], $string) . ", "; // title of that page.
-  echo "\"bodyCount\": " . substr_count(strip_tags($explodedExplodedBody[0]), $string);
+  echo "\"bodyCount\": " . substr_count(strip_tags($explodedExplodedBody[0]), $string) . ", ";
+  echo "\"metaCount\": " . substr_count(strip_tags($tags['keywords']), $string);
   echo " } }";
 ?>

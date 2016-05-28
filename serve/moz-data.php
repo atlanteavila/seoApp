@@ -15,7 +15,8 @@ $urlSafeSignature = urlencode(base64_encode($binarySignature));
 $objectURL = $_GET['url'];
 // Add up all the bit flags you want returned.
 // Learn more here: https://moz.com/help/guides/moz-api/mozscape/api-reference/url-metrics
-$cols = "103079249956";
+$cols = $_GET['cols'];
+// $cols = "103079249956";
 // Put it all together and you get your request URL.
 // This example uses the Mozscape URL Metrics API.
 $requestUrl = "http://lsapi.seomoz.com/linkscape/url-metrics/".urlencode($objectURL)."?Cols=".$cols."&AccessID=".$accessID."&Expires=".$expires."&Signature=".$urlSafeSignature;

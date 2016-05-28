@@ -1,6 +1,10 @@
 var seoApp = {};
 var getId = document.getElementById.bind(document);
 
+// have to create the object for the bodyCount to be undefined until the script finishes loading and replaces it.
+seoApp.siteData = {};
+seoApp.siteData.result = {};
+seoApp.siteData.result.bodyCount = undefined;
 //  set site score
 seoApp.siteScore = 0;
 //  gt matrix - page ranking tool
@@ -80,19 +84,31 @@ seoApp.findTitle = function () {
 }
 
 seoApp.bodyCount = function() {
-//loop through the data until it is not undefined.
-  var data = seoApp.siteData.result.bodyCount;
-
-  if (data > 5) {
-    seoApp.siteScore += 10;
-    seoApp.createResults("Your keyword/keyphrase is found within your body", "We see that your keyword/keyphrase appears " + data.bodycount +" time(s). Please make sure that it\'s spread throughout the page in a consistent and constant manner.", 10, "bodyResults" );
-    getId('bodyResults-score').style.background = "green";
-  }else if (data < 4) {
-    seoApp.createResults("Your keyword/keyphrase is found but not enough consistency", "We see that your keyword/keyphrase appears " + data.bodycount +" time(s). Please make sure that it\'s spread throughout the page in a consistent and constant manner and try adding it at least a couple more times.", 5, "bodyResults" );
-    getId('bodyResults-score').style.background = "orange";
-  }else{
-    seoApp.createResults("Your keyword/keyphrase is NOT found within your body", "We see that your keyword/keyphrase appears " + data.bodycount +" time(s). Please make sure that it\'s spread throughout the page in a consistent and constant manner. Try to place it at least 5 or more times.", 0, "bodyResults" );
-    getId('bodyResults-score').style.background = "red"
+  console.log("running bodyCount");
+  var setData = seoApp.siteData.result.bodyCount;
+  document.getElementById('loading').style.display = 'block';
+  for (var i = 0; i < 10; i++) {
+    setTimeout(function () {
+      if(setData !== undefined){
+        document.getElementById('loading').style.display = 'none'
+        i =  11
+        if (setData > 5) {
+          seoApp.siteScore += 10;
+          seoApp.createResults("Your keyword/keyphrase is found within your body", "We see that your keyword/keyphrase appears " + setData +" time(s). Please make sure that it\'s spread throughout the page in a consistent and constant manner.", 10, "bodyResults" );
+              getId('bodyResults-score').style.background = "green";
+        }else if (setData < 4) {
+          seoApp.siteScore += 5;
+          seoApp.createResults("Your keyword/keyphrase is found but not enough consistency", "We see that your keyword/keyphrase appears " + setData +" time(s). Please make sure that it\'s spread throughout the page in a consistent and constant manner and try adding it at least a couple more times.", 5, "bodyResults" );
+          getId('bodyResults-score').style.background = "orange";
+        }else{
+          seoApp.createResults("Your keyword/keyphrase is NOT found within your body", "We see that your keyword/keyphrase appears " + setData +" time(s). Please make sure that it\'s spread throughout the page in a consistent and constant manner. Try to place it at least 5 or more times.", 0, "bodyResults" );
+              getId('bodyResults-score').style.background = "red"
+        }
+      }else {
+        document.getElementById('loading').style.display = 'none';
+        seoApp.createResults("We weren't able to get the body content. ", "Please contact your developer to allow us to scrape the data.", 0, "bodyResults" );
+      }
+    }, 6000);
   }
 }
 
@@ -120,8 +136,6 @@ seoApp.getGoogleSpeedJson = function () {
 
       // invoke functions to execute for other areas of the evaluator.
       seoApp.googleSpeed();
-      seoApp.bodyCount();
-
 
       //  return the data to ensure it gets added to seoApp.
     } else {
@@ -147,12 +161,23 @@ seoApp.startOver = function(){
 seoApp.getSiteData = function(){
   var URL = seoApp.WORKING_URL
   var KEYWORDS = seoApp.KEYWORDS
-  toolbelt.getData('serve/app.php?url='+ URL + "&keywords=" + KEYWORDS, 'siteData');
+  toolbelt.getData('serve/app.php?url='+ URL + "&keywords=" + KEYWORDS, 'siteData', seoApp.bodyCount);
 };
 
 seoApp.getMozData = function(){
   var URL = seoApp.WORKING_URL;
-  toolbelt.getData('serve/moz-data.php?url=' + URL, 'mozData');
+
+  // an array that will be passed in to the url to get the moz-data you want to receive back. This parameter is added to a total so that the moz API can return relevant data. See the url metrix: https://moz.com/help/guides/moz-api/mozscape/api-reference/url-metrics
+  var COLS = [32, 2048, 16384, 34359738368, 68719476736];
+
+  // use reduce to add every element in the array to a final total.
+  COLS = toolbelt.reduce(COLS, function(start, number){
+    return start + number;
+  }, 0);
+
+  console.log(COLS); 2
+
+  toolbelt.getData('serve/moz-data.php?url=' + URL + '&cols=' + COLS, 'mozData');
 }
 
 
